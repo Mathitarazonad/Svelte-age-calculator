@@ -1,0 +1,94 @@
+<script lang='ts'>
+	import YearInput from './YearInput.svelte';
+	import DayInput from './DayInput.svelte';
+	import MonthInput from './MonthInput.svelte';
+	import SubmitButton from './SubmitButton.svelte';
+  import date from '$lib/stores/dates.js'
+	import { updateDateResults } from '$lib/utils/datesUpdates.js';
+	import { areEmptyInputs } from '$lib/utils/dateChecks.js';
+	import DatePicker from './DatePicker.svelte';
+
+  const handleSubmit = () => {
+    if (!$date.ableToSubmitForm || areEmptyInputs()) {
+      return null
+    }
+
+    updateDateResults()
+  }
+
+</script>
+
+<form on:submit|preventDefault={handleSubmit}>
+  <DatePicker />
+  <div class="inputs-container">
+    <DayInput />
+    <MonthInput />
+    <YearInput />
+  </div>
+  <SubmitButton />
+</form>
+
+<style>
+  form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    width: 100%;
+  }
+  .inputs-container {
+    display: flex;
+    gap: 10px;
+  }
+  :global(.date-input) {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 5px;
+  }
+  :global(.date-input input) {
+    width: 100%;
+    padding: 10px 10px;
+    font-size: 20px;
+    font-weight: 900;
+    color: hsl(0, 0%, 8%);
+    border: none;
+    border: 1px solid hsl(0, 0%, 86%);
+    border-radius: 7px;
+    outline-color: hsl(0, 1%, 44%);
+    outline-width: .1px;
+  }
+  :global(.date-input input::-webkit-outer-spin-button,.date-input input::-webkit-inner-spin-button) {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  :global(.date-input input:hover) {
+    border-color: hsl(0, 1%, 44%);
+    border-width: 1px;
+  }
+  :global(.date-input label) {
+    color: hsl(0, 1%, 44%);
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+  }
+
+  :global(.date-input.error input){
+    border-color: hsl(0, 100%, 67%);
+    outline-color: hsl(0, 100%, 67%);
+  }
+
+  :global(.date-input.error label) {
+    color: hsl(0, 100%, 67%);
+  }
+
+  :global(.date-input .input-error-message) {
+    position: absolute;
+    top: 105%;
+    color: hsl(0, 100%, 67%);
+    font-style: italic;
+    font-size: 12px;
+  }
+
+</style>
