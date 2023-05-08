@@ -1,16 +1,17 @@
-import { writable, type Writable } from 'svelte/store';
-import type { FullDate, InputError } from '$lib/types/types.js';
+import { writable, type Writable } from 'svelte/store'
+import type { FullDate, InputError } from '$lib/types/types.js'
 
 interface DateStore {
-  selectedDates: FullDate,
-  maxDates: FullDate,
-  datesResult: FullDate,
+  selectedDates: FullDate
+  maxDates: { day: number, month: number, year: number }
+  datesResult: FullDate
   datesErrors: {
-    day: InputError,
-    month: InputError,
+    day: InputError
+    month: InputError
     year: InputError
   }
   ableToSubmitForm: boolean
+  includeCurrentDay: boolean
 }
 
 const date: Writable<DateStore> = writable({
@@ -35,6 +36,7 @@ const date: Writable<DateStore> = writable({
     year: null
   },
   ableToSubmitForm: true,
+  includeCurrentDay: false
 })
 
-export default date;
+export default date

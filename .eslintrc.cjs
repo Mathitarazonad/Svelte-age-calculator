@@ -4,7 +4,8 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:svelte/recommended',
-		'prettier'
+		'prettier',
+		'./node_modules/ts-standard/eslintrc.json'
 	],
 	parser: '@typescript-eslint/parser',
 	plugins: ['@typescript-eslint'],
@@ -12,7 +13,8 @@ module.exports = {
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
-		extraFileExtensions: ['.svelte']
+		extraFileExtensions: ['.svelte'],
+		project: './tsconfig.json'
 	},
 	env: {
 		browser: true,

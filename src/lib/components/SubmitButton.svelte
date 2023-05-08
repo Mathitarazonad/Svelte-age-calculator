@@ -19,10 +19,11 @@
   hr {
     border: none;
     width: 100%;
-    border-top: 2px solid hsl(0, 0%, 86%);
+    border-top: 2px solid;
+    border-color: var(--Light-grey)
   }
   button {
-    background-color: hsl(259, 100%, 65%);
+    background-color: var(--Purple);
     padding: 17px;
     width: 55px;
     height: 55px;
@@ -38,7 +39,7 @@
     transition: .5s;
   }
   button:hover {
-    background-color: hsl(0, 0%, 8%);
+    background-color: var(--Black);
     transition: .5s;
   }
 </style>

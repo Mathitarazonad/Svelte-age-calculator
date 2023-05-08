@@ -5,7 +5,7 @@
   $: year = $date.datesResult.year
 </script>
 
-<div class="results-container">
+<div class='results-container'>
   <div>
     <p><span>{year || year === 0 ? year : '- -'}</span> years</p>
   </div>
@@ -28,13 +28,13 @@
     font-size: 50px;
     font-weight: 900;
     font-style: italic;
-    color: hsl(259, 100%, 65%);
+    color: var(--Purple);
   }
 
   p {
     font-size: 45px;
     font-weight: 900;
     font-style: italic;
-    color: hsl(0, 0%, 8%);
+    color: var(--Black);
   }
 </style>

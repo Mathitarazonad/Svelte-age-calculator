@@ -17,24 +17,31 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    --Purple: hsl(259, 100%, 65%);
+    --Red: hsl(0, 100%, 67%);
+    --White: white;
+    --Off-white: hsl(0, 0%, 94%);
+    --Light-grey: hsl(0, 0%, 86%);
+    --Smokey-grey: hsl(0, 1%, 44%);
+    --Black: hsl(0, 0%, 8%);
   }
 
   :global(body) {
-    background-color: hsl(0, 0%, 86%)
+    background-color: var(--Light-grey);
   }
 
   h1 {
     text-align:  center;
-    color: hsl(0, 0%, 8%);
+    color: var(--Black);
     font-weight: 900;
   }
 
   .card {
     width: 100%;
     max-width: 600px;
-    max-height: 500px;
     padding: 55px 20px;
-    background-color: white;
+    padding-bottom: 20px;
+    background-color: var(--White);
     border-radius: 25px;
     border-bottom-right-radius: 25%;
     display: flex;

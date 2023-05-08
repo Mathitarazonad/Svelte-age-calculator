@@ -5,8 +5,9 @@
 	import SubmitButton from './SubmitButton.svelte';
   import date from '$lib/stores/dates.js'
 	import { updateDateResults } from '$lib/utils/datesUpdates.js';
-	import { areEmptyInputs } from '$lib/utils/dateChecks.js';
+	import { areEmptyInputs } from '$lib/utils/dateChecks.js'
 	import DatePicker from './DatePicker.svelte';
+	import CurrentDayButton from './CurrentDayButton.svelte';
 
   const handleSubmit = () => {
     if (!$date.ableToSubmitForm || areEmptyInputs()) {
@@ -20,11 +21,12 @@
 
 <form on:submit|preventDefault={handleSubmit}>
   <DatePicker />
-  <div class="inputs-container">
+  <div class='inputs-container'>
     <DayInput />
     <MonthInput />
     <YearInput />
   </div>
+  <CurrentDayButton />
   <SubmitButton />
 </form>
 
@@ -33,7 +35,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 70px;
+    gap: 40px;
     width: 100%;
   }
   .inputs-container {
@@ -52,11 +54,11 @@
     padding: 10px 10px;
     font-size: 20px;
     font-weight: 900;
-    color: hsl(0, 0%, 8%);
+    color: var(--Black);
     border: none;
     border: 1px solid hsl(0, 0%, 86%);
     border-radius: 7px;
-    outline-color: hsl(0, 1%, 44%);
+    outline-color: var(--Purple);
     outline-width: .1px;
   }
   :global(.date-input input::-webkit-outer-spin-button,.date-input input::-webkit-inner-spin-button) {
@@ -64,7 +66,7 @@
     margin: 0;
   }
   :global(.date-input input:hover) {
-    border-color: hsl(0, 1%, 44%);
+    border-color: var(--Purple);
     border-width: 1px;
   }
   :global(.date-input label) {
@@ -75,18 +77,18 @@
   }
 
   :global(.date-input.error input){
-    border-color: hsl(0, 100%, 67%);
-    outline-color: hsl(0, 100%, 67%);
+    border-color: var(--Red);
+    outline-color: var(--Red);
   }
 
   :global(.date-input.error label) {
-    color: hsl(0, 100%, 67%);
+    color: var(--Red);
   }
 
   :global(.date-input .input-error-message) {
     position: absolute;
     top: 105%;
-    color: hsl(0, 100%, 67%);
+    color: var(--Red);
     font-style: italic;
     font-size: 12px;
   }

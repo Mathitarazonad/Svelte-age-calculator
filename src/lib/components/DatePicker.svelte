@@ -2,6 +2,7 @@
   import MdEvent from 'svelte-icons/md/MdEvent.svelte'
   import { DatePicker} from 'date-picker-svelte'
 	import { updateFullDate } from '$lib/utils/datesUpdates.js';
+	import { scale } from 'svelte/transition';
 
   let date: Date;
   let openCalendar = false
@@ -16,19 +17,16 @@
     updateFullDate(formatedDate)
   }
 
-  const handleClick = () => {
-    openCalendar = !openCalendar
-  }
 
 </script>
 
 <div class='date-picker-container'>
-  <div class='date-picker-icon' on:click={() => handleClick()}>
+  <button type="button" class='date-picker-icon' on:click={() => openCalendar = !openCalendar}>
     <MdEvent />
-  </div>
+  </button>
   {#if openCalendar}
     <div class='date-picker'>
-      <DatePicker max={new Date()} bind:value={date}/>
+      <DatePicker bind:value={date} browseWithoutSelecting={true}/>
     </div>
   {/if}
 </div>
@@ -47,9 +45,15 @@
   }
 
   .date-picker-icon {
+    border: none;
+    background: none;
     width: 30px;
     height: 30px;
     color: hsl(259, 100%, 65%);
     cursor: pointer;
+  }
+
+  .date-picker-icon:hover {
+    transform: scale(1.1);
   }
 </style>

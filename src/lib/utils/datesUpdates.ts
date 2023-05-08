@@ -3,46 +3,51 @@ import type { DateType, FullDate, InputError, SingleDate } from '$lib/types/type
 import { get } from 'svelte/store'
 import { getMaxDayOfMonth } from './dateChecks.js'
 
-export const updateDates= (dateToUpate: SingleDate, dateType: DateType) => {
+export const updateDates = (dateToUpate: SingleDate, dateType: DateType): void => {
   const dateStoreValues = get(dateStore)
-  const newDates = {...dateStoreValues.selectedDates}
+  const newDates = { ...dateStoreValues.selectedDates }
   newDates[dateType] = dateToUpate
 
   dateStore.update(store => {
-    return {...store, selectedDates: newDates}
+    return { ...store, selectedDates: newDates }
   })
 }
 
-export const updateFullDate = (dates: FullDate) => {
+export const updateFullDate = (dates: FullDate): void => {
   dateStore.update(store => {
-    return {...store, selectedDates: dates}
+    return { ...store, selectedDates: dates }
   })
 }
 
 export function updateDatesErrors (errorType: InputError, dateType: DateType): void {
   dateStore.update(dates => {
-    const newDatesErrors = {...dates.datesErrors }
+    const newDatesErrors = { ...dates.datesErrors }
     newDatesErrors[dateType] = errorType
-    return {...dates, datesErrors: newDatesErrors}
-  })
-} 
-
-export function updateDateResults () {
-  const dateStoreValues = get(dateStore)
-  const {day, month, year} = dateStoreValues.selectedDates
-  const newDateResults = calculateDates([day, month, year] as Array<number>)
-
-  dateStore.update(store => {
-    return {...store, datesResult: newDateResults}
+    return { ...dates, datesErrors: newDatesErrors }
   })
 }
 
-function calculateDates(dates: Array<number>) {
-  const [selectedDay, selectedMonth, selectedYear]= dates
-  const [currentDay, currentMonth, currentYear] = [new Date().getDate(), (new Date().getMonth()) + 1, new Date().getFullYear()] 
-  const results: FullDate = {day: 0, month: 0, year: 0}
+export function updateDateResults (): void {
+  const dateStoreValues = get(dateStore)
+  const { day, month, year } = dateStoreValues.selectedDates
+  const newDateResults = calculateDates([day, month, year] as number[])
 
-  if (selectedMonth > currentMonth || (selectedMonth === currentMonth && selectedDay > currentDay )) {
+  dateStore.update(store => {
+    return { ...store, datesResult: newDateResults }
+  })
+}
+
+function calculateDates (dates: number[]): FullDate {
+  const includeCurrentDay = get(dateStore).includeCurrentDay
+  const [selectedDay, selectedMonth, selectedYear] = dates
+  const [currentDay, currentMonth, currentYear] = [
+    includeCurrentDay ? (new Date().getDate()) + 1 : new Date().getDate(),
+    (new Date().getMonth()) + 1,
+    new Date().getFullYear()
+  ]
+  const results: FullDate = { day: 0, month: 0, year: 0 }
+
+  if (selectedMonth > currentMonth || (selectedMonth === currentMonth && selectedDay > currentDay)) {
     results.year = (currentYear - selectedYear) - 1
   } else {
     results.year = currentYear - selectedYear
@@ -54,22 +59,18 @@ function calculateDates(dates: Array<number>) {
     if (selectedDay > currentDay) {
       results.month--
     }
-  }else if (selectedMonth === currentMonth && selectedDay > currentDay) { 
+  } else if (selectedMonth === currentMonth && selectedDay > currentDay) {
     results.month = 11
   } else {
     results.month = currentMonth - selectedMonth
     if (selectedDay > currentDay) results.month--
   }
 
-
   if (selectedDay <= currentDay) {
     results.day = currentDay - selectedDay
   } else {
-    results.day = ((getMaxDayOfMonth(selectedMonth, selectedYear) - 1) - selectedDay ) + currentDay
+    results.day = ((getMaxDayOfMonth(selectedMonth, selectedYear) - 1) - selectedDay) + currentDay
   }
 
   return results
-
 }
-
-
