@@ -1,14 +1,18 @@
 <script lang='ts'>
-	import { checkForDateErrors, checkForSubmitAble, getInputErrorMessage } from '$lib/utils/dateChecks.js';
 	import { afterUpdate } from 'svelte';
   import date from '../stores/dates.js'
+	import { checkForDateErrors, checkForSubmitAble } from '$lib/utils/dateChecks.js';
+	import { getInputErrorMessage } from '$lib/utils/dateGetter.js';
 
   const dateType = 'year'
   let maxYear = $date.maxDates.year
-  let dateError = $date.datesErrors.year
-  $: $date.maxDates.month = $date.selectedDates.year === maxYear ? new Date().getMonth() : 12
+  $: dateError = $date.datesErrors[dateType];
+  $: $date.maxDates.month = $date.selectedDates.year === maxYear ? (new Date().getMonth() + 1) : 12
 
-  afterUpdate(() => dateError = checkForDateErrors(dateType))
+  afterUpdate(() => {
+    dateError = checkForDateErrors(dateType)
+  })
+  
   $: checkForSubmitAble(dateError)
 
 </script>

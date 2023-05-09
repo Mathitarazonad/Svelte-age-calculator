@@ -1,13 +1,14 @@
 <script lang='ts'>
+  import date from '$lib/stores/dates.js'
+	import { updateDateResults } from '$lib/utils/datesUpdates.js';
+	import { areEmptyInputs } from '$lib/utils/dateChecks.js'
 	import YearInput from './YearInput.svelte';
 	import DayInput from './DayInput.svelte';
 	import MonthInput from './MonthInput.svelte';
 	import SubmitButton from './SubmitButton.svelte';
-  import date from '$lib/stores/dates.js'
-	import { updateDateResults } from '$lib/utils/datesUpdates.js';
-	import { areEmptyInputs } from '$lib/utils/dateChecks.js'
 	import DatePicker from './DatePicker.svelte';
 	import CurrentDayButton from './CurrentDayButton.svelte';
+	import DateComparison from './DateComparison.svelte';
 
   const handleSubmit = () => {
     if (!$date.ableToSubmitForm || areEmptyInputs()) {
@@ -26,6 +27,7 @@
     <MonthInput />
     <YearInput />
   </div>
+  <DateComparison />
   <CurrentDayButton />
   <SubmitButton />
 </form>

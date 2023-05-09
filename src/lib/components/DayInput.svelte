@@ -1,12 +1,15 @@
 <script lang='ts'>
   import date from '$lib/stores/dates.js'
-	import { checkForDateErrors, checkForSubmitAble, getInputErrorMessage } from '$lib/utils/dateChecks.js';
+	import { checkForDateErrors, checkForSubmitAble } from '$lib/utils/dateChecks.js';
+	import { getInputErrorMessage } from '$lib/utils/dateGetter.js';
 	import { afterUpdate } from 'svelte';
 
   const dateType = 'day'
-  let dateError = $date.datesErrors.day
+  $: dateError = $date.datesErrors[dateType];
   
-  afterUpdate(() => dateError = checkForDateErrors(dateType)) 
+  afterUpdate(() => {
+    dateError = checkForDateErrors(dateType)
+  }) 
   //Everytime the month, age, day or maxDay changes, check the date again
 
   $: checkForSubmitAble(dateError)

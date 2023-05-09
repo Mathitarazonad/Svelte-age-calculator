@@ -1,15 +1,14 @@
 <script lang='ts'>
   import date from '$lib/stores/dates.js'
-	import type { InputError } from '$lib/types/types.js';
-	import { checkForDateErrors, checkForSubmitAble, getInputErrorMessage, getMaxDayOfMonth } from '$lib/utils/dateChecks.js';
+	import { checkForDateErrors, checkForSubmitAble } from '$lib/utils/dateChecks.js';
+	import { getInputErrorMessage } from '$lib/utils/dateGetter.js';
 	import { afterUpdate } from 'svelte';
 
   const dateType = 'month'
-  let dateError: InputError;
-
+  $: dateError = $date.datesErrors[dateType];
+  
   afterUpdate(() => {
     dateError = checkForDateErrors(dateType)
-    $date.maxDates.day = $date.selectedDates.year && $date.selectedDates.month ? getMaxDayOfMonth($date.selectedDates.month, $date.selectedDates.year) : 31
   })
 
   $: checkForSubmitAble(dateError) 

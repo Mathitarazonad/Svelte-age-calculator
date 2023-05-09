@@ -3,7 +3,6 @@
 	import DateResults from '$lib/components/DateResults.svelte';
 </script>
 
-<h1>Svelte Age Calculator</h1>
 <div class="card">
   <AgeForm />
   <DateResults />
@@ -30,12 +29,6 @@
     background-color: var(--Light-grey);
   }
 
-  h1 {
-    text-align:  center;
-    color: var(--Black);
-    font-weight: 900;
-  }
-
   .card {
     width: 100%;
     max-width: 600px;
@@ -47,5 +40,11 @@
     display: flex;
     flex-direction: column;
     gap:40px;
+  }
+
+  @media (max-height: 650px) {
+    :global(body) {
+      padding: 10px 0;
+    }
   }
 </style>

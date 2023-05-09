@@ -1,9 +1,9 @@
 import dateStore from '$lib/stores/dates.js'
 import type { DateType, FullDate, InputError, SingleDate } from '$lib/types/types.js'
 import { get } from 'svelte/store'
-import { getMaxDayOfMonth } from './dateChecks.js'
+import { getMaxDayOfMonth } from './dateGetter.js'
 
-export const updateDates = (dateToUpate: SingleDate, dateType: DateType): void => {
+export function updateDates (dateToUpate: SingleDate, dateType: DateType): void {
   const dateStoreValues = get(dateStore)
   const newDates = { ...dateStoreValues.selectedDates }
   newDates[dateType] = dateToUpate
@@ -13,7 +13,7 @@ export const updateDates = (dateToUpate: SingleDate, dateType: DateType): void =
   })
 }
 
-export const updateFullDate = (dates: FullDate): void => {
+export function updateFullDate (dates: FullDate): void {
   dateStore.update(store => {
     return { ...store, selectedDates: dates }
   })

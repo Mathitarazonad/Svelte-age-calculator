@@ -3,7 +3,7 @@ import type { FullDate, InputError } from '$lib/types/types.js'
 
 interface DateStore {
   selectedDates: FullDate
-  maxDates: { day: number, month: number, year: number }
+  maxDates: { month: number, year: number }
   datesResult: FullDate
   datesErrors: {
     day: InputError
@@ -21,7 +21,6 @@ const date: Writable<DateStore> = writable({
     year: 2000
   },
   maxDates: {
-    day: 31,
     month: (new Date().getMonth()) + 1,
     year: new Date().getFullYear()
   },
