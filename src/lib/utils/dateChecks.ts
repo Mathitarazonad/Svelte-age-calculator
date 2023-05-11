@@ -11,9 +11,12 @@ export function checkForDateErrors (dateType: DateType): InputError {
   const { month: maxMonth, year: maxYear } = dateStoreValues.maxDates
   const maxDay = selectedMonth === maxMonth && selectedYear === maxYear ? getMaxDayOfMonth(selectedMonth, selectedYear) : 31
 
-  let errorType: InputError = null
+  let errorType: InputError = dateStoreValues.datesErrors[dateType]
 
-  if (dateToCheck === null) return null
+  if ((dateToCheck === null && errorType !== 'EMPTY_VALUE') || (dateToCheck !== 0 && dateToCheck !== null && errorType === 'EMPTY_VALUE') ) {
+    updateDatesErrors(null, dateType)
+    return null
+  }
 
   if (dateToCheck === 0) {
     errorType = 'DATE_ZERO'
@@ -48,7 +51,7 @@ export function checkForSubmitAble (dateError: InputError): void {
   })
 }
 
-export function areEmptyInputs (): boolean {
+export function areEmptyInputs (updateErrors = false): boolean {
   const dateStoreValues = get(dateStore)
   const { day, month, year } = dateStoreValues.selectedDates
 
@@ -56,14 +59,12 @@ export function areEmptyInputs (): boolean {
     return false
   }
 
-  const newDateErrors = { ...dateStoreValues.datesErrors }
-  if (day === null) newDateErrors.day = 'EMPTY_VALUE'
-  if (month === null) newDateErrors.month = 'EMPTY_VALUE'
-  if (year === null) newDateErrors.year = 'EMPTY_VALUE'
-
-  dateStore.update(store => {
-    return { ...store, datesErrors: newDateErrors }
-  })
+  if (updateErrors) {
+    const emptyError = 'EMPTY_VALUE'
+    if (day === null) updateDatesErrors(emptyError, 'day')
+    if (month === null) updateDatesErrors(emptyError, 'month')
+    if (year === null) updateDatesErrors(emptyError, 'year')
+  }
 
   return true
 }
