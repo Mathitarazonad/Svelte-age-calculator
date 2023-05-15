@@ -11,11 +11,16 @@ export function checkForDateErrors (dateType: DateType): InputError {
   const { month: maxMonth, year: maxYear } = dateStoreValues.maxDates
   const maxDay = selectedMonth === maxMonth && selectedYear === maxYear ? getMaxDayOfMonth(selectedMonth, selectedYear) : 31
 
-  let errorType: InputError = dateStoreValues.datesErrors[dateType]
+  const currentError = dateStoreValues.datesErrors[dateType]
+  let errorType: InputError = null
 
-  if ((dateToCheck === null && errorType !== 'EMPTY_VALUE') || (dateToCheck !== 0 && dateToCheck !== null && errorType === 'EMPTY_VALUE') ) {
-    updateDatesErrors(null, dateType)
-    return null
+  if (dateToCheck === null && currentError === 'EMPTY_VALUE') {
+    return currentError
+  }
+
+  if (dateToCheck === null) {
+    updateDatesErrors(errorType, dateType)
+    return errorType
   }
 
   if (dateToCheck === 0) {
