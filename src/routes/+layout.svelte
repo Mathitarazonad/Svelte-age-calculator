@@ -4,8 +4,8 @@
 
 <style>
   main {
-    padding: 15px;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 0 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
