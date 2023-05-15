@@ -2,6 +2,8 @@ import dateStore from '$lib/stores/dates.js'
 import { get } from 'svelte/store'
 import type { InputError } from '$lib/types/types.js'
 
+type TypeOfDate = 'to' | 'from'
+
 export function getMaxDayOfMonth (month: number, year: number): number {
   const dateStoreValues = get(dateStore)
   const { month: maxMonth, year: maxYear } = dateStoreValues.maxDates
@@ -9,7 +11,7 @@ export function getMaxDayOfMonth (month: number, year: number): number {
   if (month === maxMonth && year === maxYear) {
     return new Date().getDate()
   }
-  return new Date(year, month - 1, 0).getDate()
+  return new Date(year, month, 0).getDate()
 }
 
 export function getInputErrorMessage (errorCode: InputError): string {
@@ -23,4 +25,13 @@ export function getInputErrorMessage (errorCode: InputError): string {
     return 'Must not be a zero date'
   }
   return ''
+}
+
+export function getDateString (typeOfDate: TypeOfDate): string {
+  const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+  const selectedDates = get(dateStore).selectedDates
+
+  if (typeOfDate === 'to') return new Date().toLocaleDateString('en-US', options)
+
+  return new Date(selectedDates.year as number, selectedDates.month as number - 1, selectedDates.day as number).toLocaleDateString('en-US', options)
 }
