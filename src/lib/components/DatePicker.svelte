@@ -2,7 +2,6 @@
   import MdEvent from 'svelte-icons/md/MdEvent.svelte'
   import { DatePicker} from 'date-picker-svelte'
 	import { updateFullDate } from '$lib/utils/datesUpdates.js';
-	import { scale } from 'svelte/transition';
 
   let date: Date;
   let openCalendar = false
