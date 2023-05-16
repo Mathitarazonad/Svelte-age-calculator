@@ -1,7 +1,7 @@
 import { writable, type Writable } from 'svelte/store'
 import type { DateDetails, FullDate, InputError } from '$lib/types/types.js'
 
-interface DateStore {
+export interface DateStore {
   selectedDates: FullDate
   maxDates: { month: number, year: number }
   datesResult: FullDate

@@ -1,11 +1,15 @@
-import dateStore from '$lib/stores/dates.js'
+import dateStore, { type DateStore } from '$lib/stores/dates.js'
 import { get } from 'svelte/store'
 import type { InputError } from '$lib/types/types.js'
 
 type TypeOfDate = 'to' | 'from'
 
+export function getStore (): DateStore {
+  return get(dateStore)
+}
+
 export function getMaxDayOfMonth (month: number, year: number): number {
-  const dateStoreValues = get(dateStore)
+  const dateStoreValues = getStore()
   const { month: maxMonth, year: maxYear } = dateStoreValues.maxDates
 
   if (month === maxMonth && year === maxYear) {
@@ -29,7 +33,7 @@ export function getInputErrorMessage (errorCode: InputError): string {
 
 export function getDateString (typeOfDate: TypeOfDate): string {
   const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-  const selectedDates = get(dateStore).selectedDates
+  const selectedDates = getStore().selectedDates
 
   if (typeOfDate === 'to') return new Date().toLocaleDateString('en-US', options)
 
