@@ -2,19 +2,21 @@
   import date from '$lib/stores/dates.js'
 	import { updateDateResults } from '$lib/utils/datesUpdates.js';
 	import { areEmptyInputs } from '$lib/utils/dateChecks.js'
-	import YearInput from './YearInput.svelte';
-	import DayInput from './DayInput.svelte';
-	import MonthInput from './MonthInput.svelte';
-	import SubmitButton from './SubmitButton.svelte';
-	import DatePicker from './DatePicker.svelte';
-	import CurrentDayButton from './CurrentDayButton.svelte';
-	import DateComparison from './DateComparison.svelte';
+	import { updateDateDetails } from '$lib/utils/datesUpdates.js';
+	import YearInput from './YearInput.svelte'
+	import DayInput from './DayInput.svelte'
+	import MonthInput from './MonthInput.svelte'
+	import SubmitButton from './SubmitButton.svelte'
+	import DatePicker from './DatePicker.svelte'
+	import CurrentDayButton from './CurrentDayButton.svelte'
+	import DateComparison from './DateComparison.svelte'
 
   const handleSubmit = () => {
-    if (!$date.ableToSubmitForm || areEmptyInputs()) {
+    if (!$date.ableToSubmitForm || areEmptyInputs(true)) {
       return null
     }
 
+    updateDateDetails()
     updateDateResults()
   }
 
@@ -69,7 +71,6 @@
   }
   :global(.date-input input:hover) {
     border-color: var(--Purple);
-    border-width: 1px;
   }
   :global(.date-input label) {
     color: hsl(0, 1%, 44%);
@@ -93,6 +94,12 @@
     color: var(--Red);
     font-style: italic;
     font-size: 12px;
+  }
+
+  @media (max-height: 650px) {
+    form {
+      gap: 25px;
+    }
   }
 
 </style>
