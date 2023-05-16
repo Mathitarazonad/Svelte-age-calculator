@@ -1,11 +1,10 @@
 import type { DateType, InputError } from '$lib/types/types.js'
-import { get } from 'svelte/store'
 import dateStore from '../stores/dates.js'
 import { updateDatesErrors } from './datesUpdates.js'
-import { getMaxDayOfMonth } from './dateGetter.js'
+import { getMaxDayOfMonth, getStore } from './dateGetter.js'
 
 export function checkForDateErrors (dateType: DateType): InputError {
-  const dateStoreValues = get(dateStore)
+  const dateStoreValues = getStore()
   const dateToCheck = dateStoreValues.selectedDates[dateType]
   const { month: selectedMonth, year: selectedYear } = dateStoreValues.selectedDates
   const { month: maxMonth, year: maxYear } = dateStoreValues.maxDates
@@ -57,7 +56,7 @@ export function checkForSubmitAble (dateError: InputError): void {
 }
 
 export function areEmptyInputs (updateErrors = false): boolean {
-  const dateStoreValues = get(dateStore)
+  const dateStoreValues = getStore()
   const { day, month, year } = dateStoreValues.selectedDates
 
   if (day !== null && month !== null && year !== null) {
