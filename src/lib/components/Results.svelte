@@ -11,7 +11,7 @@
     showTimeDetails = !showTimeDetails
   }
 
-  $: if ($dateStore.datesResult.day && $dateStore.datesResult.month && $dateStore.datesResult.year) {
+  $: if ($dateStore.datesResult.day !== null && $dateStore.datesResult.month !== null && $dateStore.datesResult.year !== null) {
     areResults = true 
   } else {
     areResults = false
