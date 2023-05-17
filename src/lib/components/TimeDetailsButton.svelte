@@ -30,7 +30,7 @@
     color: var(--White);
     position: absolute;
     right: 30px;
-    bottom: 10px;
+    top: 160px;
     transition: .5s;
   }
 
@@ -40,7 +40,7 @@
   }
 
   .close {
-    bottom: 215px;
+    bottom: 250px;
   }
 
   @media (min-width: 650px) {

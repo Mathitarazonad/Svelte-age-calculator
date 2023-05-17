@@ -25,7 +25,7 @@
   @media (min-width: 750px) {
     .card {
       max-width: 700px;
-      padding: 55px 20px;
+      padding: 50px 40px;
     }
   }
 </style>

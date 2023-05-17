@@ -12,80 +12,112 @@
 
 
 <div class={`details + ${showTimeDetails ? 'show-details' : ''}`}>
-  <h2>More details</h2>
-  <ul>
-    <li>{formatedTime(dateDetails.seconds)}<span>seconds</span></li>
-    <li>{formatedTime(dateDetails.minutes)}<span>minutes</span></li>
-    <li>{formatedTime(dateDetails.hours)}<span>hours</span></li>
-
-    {#if dateDetails.weeksWithDays.weeks > 0}
+  <div>
+    <h2>More details</h2>
+    <p><span class='days-convert'>{dateDetails.days + ' '}</span><span>days</span> same as:</p>
+    <ul>
+      <li>{formatedTime(dateDetails.seconds)}<strong>seconds</strong></li>
+      <li>{formatedTime(dateDetails.minutes)}<strong>minutes</strong></li>
+      <li>{formatedTime(dateDetails.hours)}<strong>hours</strong></li>
       <li>
-        {dateDetails.weeksWithDays.weeks + ' '}<span>weeks</span>
+        {dateDetails.weeksWithDays.weeks + ' '}<strong>weeks</strong>
         {#if dateDetails.weeksWithDays.days}
-          and {dateDetails.weeksWithDays.days} <span>days</span>
+          and {dateDetails.weeksWithDays.days} <strong>days</strong>
         {/if}
       </li>
-    {/if}
-    <li>
-      {dateDetails.monthsWithDays.months + ' '}<span>months</span> 
-      {#if dateDetails.monthsWithDays.days}
-        and {dateDetails.monthsWithDays.days} <span>days</span>
-      {/if}
-    </li>
-  </ul>
+      <li>
+        {dateDetails.monthsWithDays.months + ' '}<strong>months</strong>
+        {#if dateDetails.monthsWithDays.days}
+          and {dateDetails.monthsWithDays.days} <strong>days</strong>
+        {/if}
+      </li>
+    </ul>
+  </div>
 </div>
 
 <style>
   .details {
-    display: none;
-    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
     color: var(--Black);
   }
 
-  .show-details {
+  div {
+    display: none;
+  }
+
+  .details::before {
+    content: '';
+    width: 10px;
+    background-color: var(--Purple);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .show-details div {
     display: flex;
     flex-direction: column;
-    gap: 10px;
   }
 
   h2 {
-    text-align: center;
     font-size: 40px;
     font-style: italic;
     font-weight: 900;
+  }
+
+  .days-convert {
+    color: var(--Purple);
+    font-weight: 900;
+    font-size: 1.2rem;
+  }
+
+  span {
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  p {
+    font-size: 1.2rem;
   }
 
   ul {
     list-style: none; /* Remove default bullets */
   }
 
-  ul li::before {
-    content: "\2022";
-    color: var(--Purple);
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -2em;
-  }
-
   li {
-    color: var(--Black);
-    margin-left: 35px;
+    color: var(--Purple);
+    font-weight: 900;
+    font-style: italic;
+    font-size: 1.05rem;
   }
 
-  span {
-    font-weight: bold;
-    color: var(--Purple)
+  li::before {
+    content: '• ';
+    color: var(--Black);
+  }
+
+  strong {
+    color: var(--Black);
+    font-style: italic;
   }
 
   @media (min-width: 750px) {
-    .details {
+    div {
       display: flex;
       flex-direction: column;
     }
 
     h2 {
       text-align: start;
+    }
+
+    p, span, .days-convert {
+      font-size: 1.35rem;
+    }
+
+    li, strong {
+      font-size: 1.15rem;
     }
   }
 </style>

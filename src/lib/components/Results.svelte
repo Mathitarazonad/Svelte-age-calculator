@@ -32,13 +32,13 @@
     flex-direction: column;
     padding-right: 15px;
     position: relative;
+    gap: 10px;
   }
 
   @media (min-width: 750px) {
     div {
       flex-direction: row;
       justify-content: space-between;
-      align-items: center;
     }
   }
 </style>

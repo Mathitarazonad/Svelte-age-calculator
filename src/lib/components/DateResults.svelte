@@ -65,7 +65,15 @@
   .results-container {
     display: flex;
     flex-direction: column;
-    padding: 0;
+    margin-top: -1rem;
+    gap: 5px;
+  }
+  .results.container::before {
+    content: '';
+    width: 10px;
+    background-color: var(--Purple);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
   }
 
   .single-result-container {
@@ -133,15 +141,4 @@
       opacity: 1;
     }
   }
-
-  @media (min-width: 750px) and (min-height: 700px) {
-    p {
-      font-size: 55px;
-    }
-
-    .result {
-      font-size: 60px;
-    }
-  }
-
 </style>
