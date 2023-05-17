@@ -1,37 +1,17 @@
 <script lang='ts'>
 	import AgeForm from '$lib/components/AgeForm.svelte';
-	import DateResults from '$lib/components/DateResults.svelte';
+	import Results from '$lib/components/Results.svelte';
 </script>
 
-<div class="card">
+<div class='card'>
   <AgeForm />
-  <DateResults />
+  <Results />
 </div>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,800;1,400;1,700;1,800&display=swap');
-
-  :global(*) {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-    --Purple: hsl(259, 100%, 65%);
-    --Red: hsl(0, 100%, 67%);
-    --White: white;
-    --Off-white: hsl(0, 0%, 94%);
-    --Light-grey: hsl(0, 0%, 86%);
-    --Smokey-grey: hsl(0, 1%, 44%);
-    --Black: hsl(0, 0%, 8%);
-  }
-
-  :global(body) {
-    background-color: var(--Light-grey);
-  }
-
   .card {
     width: 100%;
-    max-width: 600px;
+    max-width: 370px;
     padding: 55px 20px;
     padding-bottom: 20px;
     background-color: var(--White);
@@ -42,9 +22,10 @@
     gap:40px;
   }
 
-  @media (max-height: 650px) {
-    :global(body) {
-      padding: 10px 0;
+  @media (min-width: 750px) {
+    .card {
+      max-width: 700px;
+      padding: 55px 20px;
     }
   }
 </style>
