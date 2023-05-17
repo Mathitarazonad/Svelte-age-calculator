@@ -14,21 +14,21 @@
 <div class={`details + ${showTimeDetails ? 'show-details' : ''}`}>
   <div>
     <h2>More details</h2>
-    <p><span class='days-convert'>{dateDetails.days + ' '}</span><span>days</span> same as:</p>
+    <p><span class='days-convert'>{formatedTime(dateDetails.days)}</span><span>days</span> same as:</p>
     <ul>
-      <li>{formatedTime(dateDetails.seconds)}<strong>seconds</strong></li>
-      <li>{formatedTime(dateDetails.minutes)}<strong>minutes</strong></li>
-      <li>{formatedTime(dateDetails.hours)}<strong>hours</strong></li>
+      <li><strong>{formatedTime(dateDetails.seconds)}</strong>seconds</li>
+      <li><strong>{formatedTime(dateDetails.minutes)}</strong>minutes</li>
+      <li><strong>{formatedTime(dateDetails.hours)}</strong>hours</li>
       <li>
-        {dateDetails.weeksWithDays.weeks + ' '}<strong>weeks</strong>
+        <strong>{formatedTime(dateDetails.weeksWithDays.weeks)}</strong>weeks
         {#if dateDetails.weeksWithDays.days}
-          and {dateDetails.weeksWithDays.days} <strong>days</strong>
+          and <strong>{dateDetails.weeksWithDays.days}</strong> days
         {/if}
       </li>
       <li>
-        {dateDetails.monthsWithDays.months + ' '}<strong>months</strong>
+        <strong>{dateDetails.monthsWithDays.months + ' '}</strong>months
         {#if dateDetails.monthsWithDays.days}
-          and {dateDetails.monthsWithDays.days} <strong>days</strong>
+          and <strong>{dateDetails.monthsWithDays.days + ' '}</strong>days
         {/if}
       </li>
     </ul>
@@ -86,8 +86,8 @@
   }
 
   li {
-    color: var(--Purple);
-    font-weight: 900;
+    color: var(--Black);
+    font-weight: 700;
     font-style: italic;
     font-size: 1.05rem;
   }
@@ -98,7 +98,8 @@
   }
 
   strong {
-    color: var(--Black);
+    color: var(--Purple);
+    font-weight: 900;
     font-style: italic;
   }
 
