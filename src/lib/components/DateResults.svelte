@@ -13,15 +13,29 @@
     return $date.datesResult[dateType]! < date ? 'add' : $date.datesResult[dateType]! > date ? 'substract' : ''
   }
 
+  const calculateDifference = (date: number, dateToReach: number, actionType: AnimationType):number => {
+    if ((date + 300 < dateToReach && actionType === 'add') || (date - 300 > dateToReach && actionType === 'substract')) {
+      return 10
+    }
+    if ((date + 100 < dateToReach && actionType === 'add') || (date - 100 > dateToReach && actionType === 'substract')) {
+      return 5
+    }
+    if ((date + 50 < dateToReach && actionType === 'add') || (date - 50 > dateToReach && actionType === 'substract')) {
+      return 3
+    }
+
+    return 1
+  }
+
   $: if (day !== null && month !== null && year !== null) {
     const interval = setInterval(() => {
       if (dayResult < day!) dayResult += 1
       if (monthResult < month!) monthResult += 1
-      if (yearResult < year!) yearResult += 1
+      if (yearResult < year!) yearResult += calculateDifference(yearResult, year!, 'add')
 
       if (dayResult > day!) dayResult -= 1
       if (monthResult > month!) monthResult -= 1
-      if (yearResult > year!) yearResult -= 1
+      if (yearResult > year!) yearResult -= calculateDifference(yearResult, year!, 'substract')
 
       clearInterval(interval)
       if (dayResult === day && month === monthResult && year === yearResult) clearInterval(interval)
