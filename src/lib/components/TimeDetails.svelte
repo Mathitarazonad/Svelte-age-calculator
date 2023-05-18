@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import dateStore from '$lib/stores/dates.js'
+  import dateStore from '$lib/dates.js'
 
   export let showTimeDetails: boolean;
   $: dateDetails = $dateStore.dateDetails

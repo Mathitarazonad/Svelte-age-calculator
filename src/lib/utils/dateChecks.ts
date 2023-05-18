@@ -1,5 +1,5 @@
 import type { DateType, InputError } from '$lib/types/types.js'
-import dateStore from '../stores/dates.js'
+import dateStore from '$lib/dates.js'
 import { updateDatesErrors } from './datesUpdates.js'
 import { getMaxDayOfMonth, getStore } from './dateGetter.js'
 

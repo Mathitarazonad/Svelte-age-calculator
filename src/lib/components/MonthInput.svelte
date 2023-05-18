@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import date from '$lib/stores/dates.js'
+  import date from '$lib/dates.js'
 	import { checkForDateErrors, checkForSubmitAble } from '$lib/utils/dateChecks.js';
 	import { getInputErrorMessage } from '$lib/utils/dateGetter.js';
 	import { afterUpdate } from 'svelte';

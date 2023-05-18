@@ -1,6 +1,6 @@
 <script lang='ts'>
 	import type { DateType } from '$lib/types/types.js';
-  import date from '../stores/dates.js'
+  import date from '..$lib/dates.js'
   
   type AnimationType = 'add' | 'substract' | ''
 

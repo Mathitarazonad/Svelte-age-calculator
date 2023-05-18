@@ -1,7 +1,7 @@
 <script lang='ts'>
 	import DateResults from './DateResults.svelte';
 	import TimeDetails from './TimeDetails.svelte';
-  import dateStore from '$lib/stores/dates.js'
+  import dateStore from '$lib/dates.js'
 	import TimeDetailsButton from './TimeDetailsButton.svelte';
 
   let areResults = false

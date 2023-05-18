@@ -1,4 +1,4 @@
-import dateStore, { type DateStore } from '$lib/stores/dates.js'
+import dateStore, { type DateStore } from '$lib/dates.js'
 import { get } from 'svelte/store'
 import type { FullDate, InputError } from '$lib/types/types.js'
 

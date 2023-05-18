@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import date from '$lib/stores/dates.js'
+  import date from '$lib/dates.js'
 </script>
 
 <div>

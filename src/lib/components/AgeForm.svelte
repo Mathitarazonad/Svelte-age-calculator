@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import date from '$lib/stores/dates.js'
+  import date from '$lib/dates.js'
 	import { updateDateResults } from '$lib/utils/datesUpdates.js';
 	import { areEmptyInputs } from '$lib/utils/dateChecks.js'
 	import { updateDateDetails } from '$lib/utils/datesUpdates.js';

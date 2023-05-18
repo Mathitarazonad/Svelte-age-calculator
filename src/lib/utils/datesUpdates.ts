@@ -1,4 +1,4 @@
-import dateStore from '$lib/stores/dates.js'
+import dateStore from '$lib/dates.js'
 import type { DateType, FullDate, InputError, MonthsWithDays, WeeksWithDays } from '$lib/types/types.js'
 import { getDatesResults, getMaxDayOfMonth, getStore } from './dateGetter.js'
 
