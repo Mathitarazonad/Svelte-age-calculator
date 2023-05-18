@@ -8,7 +8,7 @@ export function checkForDateErrors (dateType: DateType): InputError {
   const dateToCheck = dateStoreValues.selectedDates[dateType]
   const { month: selectedMonth, year: selectedYear } = dateStoreValues.selectedDates
   const { month: maxMonth, year: maxYear } = dateStoreValues.maxDates
-  const maxDay = selectedMonth === maxMonth && selectedYear === maxYear ? getMaxDayOfMonth(selectedMonth, selectedYear) : 31
+  const maxDay = selectedMonth && selectedYear ? getMaxDayOfMonth(selectedMonth, selectedYear) : 31
 
   const currentError = dateStoreValues.datesErrors[dateType]
   let errorType: InputError = null
