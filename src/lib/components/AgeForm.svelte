@@ -16,8 +16,8 @@
       return null
     }
 
-    updateDateDetails()
     updateDateResults()
+    updateDateDetails()
   }
 
 </script>
