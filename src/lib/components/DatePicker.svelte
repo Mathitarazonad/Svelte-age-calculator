@@ -25,7 +25,7 @@
   </button>
   {#if openCalendar}
     <div class='date-picker'>
-      <DatePicker bind:value={date} browseWithoutSelecting={true}/>
+      <DatePicker bind:value={date} browseWithoutSelecting={true} min={new Date(1900)}/>
     </div>
   {/if}
 </div>
@@ -34,6 +34,11 @@
   .date-picker {
     position: absolute;
     left: -215px;
+  }
+
+  :global(.selected) {
+    background-color: hsla(259, 100%, 65%, 0.481) !important;
+    border-color: var(--Purple) !important;
   }
 
   .date-picker-container {
