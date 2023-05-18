@@ -31,22 +31,37 @@ export function updateDateDetails (): void {
   const includeCurrentDay = dataStoreValues.includeCurrentDay
   const { day: selectedDay, month: selectedMonth, year: selectedYear } = dataStoreValues.selectedDates
   const [currentDay, currentMonth, currentYear] = [
-    includeCurrentDay ? (new Date().getDate()) + 1 : new Date().getDate(),
+    new Date().getDate(),
     (new Date().getMonth()) + 1,
     new Date().getFullYear()
   ]
 
   const getDays = (): number => {
-    const fromDateString = [dataStoreValues.selectedDates.year, dataStoreValues.selectedDates.month, dataStoreValues.selectedDates.day].join('-')
-    const toDateString = [currentYear, currentMonth, currentDay].join('-')
+    if (selectedYear === null || selectedMonth === null || selectedDay === null) return 0
 
-    const fromDate = new Date(fromDateString).getTime()
-    const toDate = new Date(toDateString).getTime()
+    let dayResult = 0
+    if (includeCurrentDay) dayResult++
 
-    const timeDifference = Math.abs(toDate - fromDate)
-    const dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
+    dayResult -= selectedDay
 
-    return dayDifference
+    let tempMonth = selectedMonth
+    let tempYear = selectedYear
+
+    while (tempMonth <= currentMonth || tempYear <= currentYear) {
+      dayResult += getMaxDayOfMonth(tempMonth, tempYear)
+
+      if (tempMonth === currentMonth && tempYear === currentYear) break
+
+      if (tempMonth === 12) {
+        tempYear++
+        tempMonth = 1
+        continue
+      }
+
+      tempMonth++
+    }
+
+    return dayResult
   }
 
   const getWeeksAndDays = (): WeeksWithDays => {
@@ -135,7 +150,8 @@ function calculateDates (dates: number[]): FullDate {
   if (selectedDay <= currentDay) {
     results.day = currentDay - selectedDay
   } else {
-    results.day = ((getMaxDayOfMonth(selectedMonth, selectedYear) - 1) - selectedDay) + currentDay
+    const maxDayOfMonth = getMaxDayOfMonth(selectedMonth, selectedYear)
+    results.day = ((maxDayOfMonth - selectedDay) + currentDay)
   }
 
   return results
