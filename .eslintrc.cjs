@@ -7,6 +7,11 @@ module.exports = {
 		'prettier',
 		'./node_modules/ts-standard/eslintrc.json'
 	],
+	"rules": {
+		"no-trailing-spaces": "off",
+		"multiline-ternary": "off",
+		"@typescript-eslint/indent": "off"
+	},
 	parser: '@typescript-eslint/parser',
 	plugins: ['@typescript-eslint'],
 	ignorePatterns: ['*.cjs'],
