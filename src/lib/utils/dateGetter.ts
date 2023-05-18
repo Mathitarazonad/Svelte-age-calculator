@@ -1,6 +1,6 @@
 import dateStore, { type DateStore } from '$lib/stores/dates.js'
 import { get } from 'svelte/store'
-import type { InputError } from '$lib/types/types.js'
+import type { FullDate, InputError } from '$lib/types/types.js'
 
 type TypeOfDate = 'to' | 'from'
 
@@ -37,4 +37,41 @@ export function getDateString (typeOfDate: TypeOfDate): string {
   if (typeOfDate === 'to') return new Date().toLocaleDateString('en-US', options)
 
   return new Date(selectedDates.year as number, selectedDates.month as number - 1, selectedDates.day as number).toLocaleDateString('en-US', options)
+}
+
+export function getDatesResults (dates: number[]): FullDate {
+  const includeCurrentDay = getStore().includeCurrentDay
+  const [selectedDay, selectedMonth, selectedYear] = dates
+  const [currentDay, currentMonth, currentYear] = [
+    includeCurrentDay ? (new Date().getDate()) + 1 : new Date().getDate(),
+    (new Date().getMonth()) + 1,
+    new Date().getFullYear()
+  ]
+  const results: FullDate = { day: 0, month: 0, year: 0 }
+
+  if (selectedMonth > currentMonth || (selectedMonth === currentMonth && selectedDay > currentDay)) {
+    results.year = (currentYear - selectedYear) - 1
+  } else {
+    results.year = currentYear - selectedYear
+  }
+
+  if (selectedMonth > currentMonth) {
+    results.month = (12 - selectedMonth) + currentMonth
+
+    if (selectedDay > currentDay) results.month--
+  } else if (selectedMonth === currentMonth && selectedDay > currentDay) {
+    results.month = 11
+  } else {
+    results.month = currentMonth - selectedMonth
+    if (selectedDay > currentDay) results.month--
+  }
+
+  if (selectedDay <= currentDay) {
+    results.day = currentDay - selectedDay
+  } else {
+    const maxDayOfMonth = getMaxDayOfMonth(selectedMonth, selectedYear)
+    results.day = ((maxDayOfMonth - selectedDay) + currentDay)
+  }
+
+  return results
 }

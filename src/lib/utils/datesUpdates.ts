@@ -1,6 +1,6 @@
 import dateStore from '$lib/stores/dates.js'
 import type { DateType, FullDate, InputError, MonthsWithDays, WeeksWithDays } from '$lib/types/types.js'
-import { getMaxDayOfMonth, getStore } from './dateGetter.js'
+import { getDatesResults, getMaxDayOfMonth, getStore } from './dateGetter.js'
 
 export function updateFullDate (dates: FullDate): void {
   dateStore.update(store => {
@@ -19,7 +19,7 @@ export function updateDatesErrors (errorType: InputError, dateType: DateType): v
 export function updateDateResults (): void {
   const dateStoreValues = getStore()
   const { day, month, year } = dateStoreValues.selectedDates
-  const newDateResults = calculateDates([day, month, year] as number[])
+  const newDateResults = getDatesResults([day, month, year] as number[])
 
   dateStore.update(store => {
     return { ...store, datesResult: newDateResults }
@@ -85,7 +85,8 @@ export function updateDateDetails (): void {
     }
 
     if (yearsDifference <= 1) {
-      return { months, days }
+      const dateStoreValues = getStore().datesResult
+      return { months: dateStoreValues.month, days: dateStoreValues.day }
     }
 
     months = yearsDifference * 12
@@ -118,41 +119,4 @@ export function updateDateDetails (): void {
   }
 
   dateStore.update(store => ({ ...store, dateDetails: newDateDetails }))
-}
-
-function calculateDates (dates: number[]): FullDate {
-  const includeCurrentDay = getStore().includeCurrentDay
-  const [selectedDay, selectedMonth, selectedYear] = dates
-  const [currentDay, currentMonth, currentYear] = [
-    includeCurrentDay ? (new Date().getDate()) + 1 : new Date().getDate(),
-    (new Date().getMonth()) + 1,
-    new Date().getFullYear()
-  ]
-  const results: FullDate = { day: 0, month: 0, year: 0 }
-
-  if (selectedMonth > currentMonth || (selectedMonth === currentMonth && selectedDay > currentDay)) {
-    results.year = (currentYear - selectedYear) - 1
-  } else {
-    results.year = currentYear - selectedYear
-  }
-
-  if (selectedMonth > currentMonth) {
-    results.month = (12 - selectedMonth) + currentMonth
-
-    if (selectedDay > currentDay) results.month--
-  } else if (selectedMonth === currentMonth && selectedDay > currentDay) {
-    results.month = 11
-  } else {
-    results.month = currentMonth - selectedMonth
-    if (selectedDay > currentDay) results.month--
-  }
-
-  if (selectedDay <= currentDay) {
-    results.day = currentDay - selectedDay
-  } else {
-    const maxDayOfMonth = getMaxDayOfMonth(selectedMonth, selectedYear)
-    results.day = ((maxDayOfMonth - selectedDay) + currentDay)
-  }
-
-  return results
 }
