@@ -1,3 +1,8 @@
+<svelte:head>
+  <title>Svelte Age Calculator</title>
+  <meta name='description' content='An age calculator app made with SvelteKit and Typescript'>
+</svelte:head>
+
 <main>
   <slot />
 </main>
