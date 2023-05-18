@@ -9,10 +9,9 @@ export function getStore (): DateStore {
 }
 
 export function getMaxDayOfMonth (month: number, year: number): number {
-  const dateStoreValues = getStore()
-  const { month: maxMonth, year: maxYear } = dateStoreValues.maxDates
+  const [currentMonth, currentYear] = [new Date().getMonth() + 1, new Date().getFullYear()]
 
-  if (month === maxMonth && year === maxYear) {
+  if (month === currentMonth && year === currentYear) {
     return new Date().getDate()
   }
   return new Date(year, month, 0).getDate()
