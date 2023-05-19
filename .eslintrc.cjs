@@ -14,7 +14,7 @@ module.exports = {
 	},
 	parser: '@typescript-eslint/parser',
 	plugins: ['@typescript-eslint'],
-	ignorePatterns: ['*.cjs'],
+	ignorePatterns: ['*.cjs', "vite.config.ts", "dist"],
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
